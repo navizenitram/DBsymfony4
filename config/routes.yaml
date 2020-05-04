@@ -1,6 +1,6 @@
-index:
+app_article_homepage:
    path: /
    controller: App\Controller\ArticleController::homepage
-article:
+app_article_show:
    path: /news/{slug}
    controller: App\Controller\ArticleController::show
