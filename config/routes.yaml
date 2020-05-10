@@ -1,6 +1,6 @@
-app_article_homepage:
+app_homepage:
    path: /
    controller: App\Controller\ArticleController::homepage
-app_article_show:
+article_show:
    path: /news/{slug}
    controller: App\Controller\ArticleController::show

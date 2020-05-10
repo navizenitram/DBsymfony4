@@ -11,7 +11,7 @@ class ArticleController extends AbstractController
 {
     public function homepage(): Response
     {
-        return new Response("OMG! My first response");
+        return $this->render('article/homepage.html.twig');
     }
 
     public function show(string $slug): Response
