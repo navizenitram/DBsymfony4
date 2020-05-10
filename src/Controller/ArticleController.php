@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends AbstractController
@@ -28,6 +29,14 @@ class ArticleController extends AbstractController
             [
                 'title'    => ucwords(str_replace('-', ' ', $slug)),
                 'comments' => $comments,
+                'slug'     => $slug,
             ]);
+    }
+
+    public function toogleArticleHeart(string $slug): response
+    {
+        //TODO
+
+        return new JsonResponse(['hearts' => rand(1, 100)]);
     }
 }

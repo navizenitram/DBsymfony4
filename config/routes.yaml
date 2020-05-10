@@ -4,3 +4,8 @@ app_homepage:
 article_show:
    path: /news/{slug}
    controller: App\Controller\ArticleController::show
+article_toggle_heart:
+   path: /news/{slug}/heart
+   controller: App\Controller\ArticleController::toogleArticleHeart
+   methods: post
+
