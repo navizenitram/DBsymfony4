@@ -1,0 +1,3 @@
+parameters:
+  cache_adapter: 'cache.adapter.filesystem'
+  isDebug: 'HOLA K ASE DEV DEBUG'

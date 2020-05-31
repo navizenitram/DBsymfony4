@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use App\Service\MarkdownHelper;
+use Http\Client\Exception;
+use Nexy\Slack\Client;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,6 +14,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends AbstractController
 {
+
+
+    private $slack;
+
+    public function __construct(Client $slack)
+    {
+        $this->slack = $slack;
+    }
+
     public function homepage(): Response
     {
         return $this->render('article/homepage.html.twig');
@@ -19,6 +30,23 @@ class ArticleController extends AbstractController
 
     public function show(string $slug, MarkdownHelper $markdownHelper): Response
     {
+
+        if ($slug === 'khaaaaaan') {
+
+            $message = $this->slack->createMessage()
+                                   ->from('Khan')
+                                   ->withIcon(':ghost:')
+                                   ->setText('Ah, Kirk, my old friend...');
+            try {
+                $this->slack->sendMessage($message);
+            } catch (Exception $e) {
+                dump($e->getMessage());
+                die;
+            }
+        }
+
+        //Así se puede acceder a cualquier parametrp de configuración
+        //dump($this->getParameter('isDebug'));die;
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
             'Woohoo! I\'m going on an all-asteroid diet!',
@@ -59,6 +87,7 @@ EOF;
     public function toogleArticleHeart(string $slug, LoggerInterface $logger): response
     {
         //TODO
+
         $logger->info('toggle heart Clickeed');
         return new JsonResponse(['hearts' => rand(1, 100)]);
     }
