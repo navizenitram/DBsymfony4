@@ -5,7 +5,6 @@ namespace App\Controller;
 
 
 use App\Service\MarkdownHelper;
-use Http\Client\Exception;
 use Nexy\Slack\Client;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,19 +30,11 @@ class ArticleController extends AbstractController
     public function show(string $slug, MarkdownHelper $markdownHelper): Response
     {
 
-        if ($slug === 'khaaaaaan') {
-
-            $message = $this->slack->createMessage()
-                                   ->from('Khan')
-                                   ->withIcon(':ghost:')
-                                   ->setText('Ah, Kirk, my old friend...');
-            try {
-                $this->slack->sendMessage($message);
-            } catch (Exception $e) {
-                dump($e->getMessage());
-                die;
-            }
-        }
+        $message = $this->slack->createMessage()
+                               ->from('Chiquito')
+                               ->withIcon(':ghost:')
+                               ->setText('Fistro pecador '.$slug.'...');
+        $this->slack->sendMessage($message);
 
         //Así se puede acceder a cualquier parametrp de configuración
         //dump($this->getParameter('isDebug'));die;
