@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use App\Service\MarkdownHelper;
+use App\Service\MessageClient;
+use App\Service\SlackMessageClient;
 use Nexy\Slack\Client;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +19,9 @@ class ArticleController extends AbstractController
 
     private $slack;
 
-    public function __construct(Client $slack)
+    public function __construct(SlackMessageClient $messageClient)
     {
-        $this->slack = $slack;
+        $this->slack = $messageClient;
     }
 
     public function homepage(): Response
@@ -30,12 +32,7 @@ class ArticleController extends AbstractController
     public function show(string $slug, MarkdownHelper $markdownHelper): Response
     {
 
-        $message = $this->slack->createMessage()
-                               ->from('Chiquito')
-                               ->withIcon(':ghost:')
-                               ->setText('Fistro pecador '.$slug.'...');
-        $this->slack->sendMessage($message);
-
+        $this->slack->send('Gato','Miau miauuuuuuu');
         //Así se puede acceder a cualquier parametrp de configuración
         //dump($this->getParameter('isDebug'));die;
         $comments = [
